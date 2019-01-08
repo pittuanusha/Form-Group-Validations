@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { __values } from 'tslib';
 @Component({
   selector: 'app-root',
@@ -27,16 +27,16 @@ student:any[];
 ngOnInit()
 {
   this.studentForm = this.fb.group({
-    firstName:"",
-    lastName:"",
-    location:"",
-    gender:"",
+    firstName:['',Validators.required],
+    lastName:['',Validators.required],
+    location:['',Validators.required],
+    gender:['',Validators.required],
   
   });
  this.student=([{"firstName":"rama","lastName":"p","location":"guntur","gender":"male"},
  {"firstName":"sitha","lastName":"p","location":"chirala","gender":"female"},
  
- {"firstName":"githa","lastName":"k","location":"hyderabad","gender":"male"}
+ {"firstName":"githa","lastName":"k","location":"hyderabad","gender":"female"}
 ])
 
 
@@ -50,6 +50,7 @@ constructor(private  fb:FormBuilder)
  onSubmit():void 
  {
   console.log(this.studentForm.value);
+  this.student.push(this.studentForm.value);
 
  }
 //  student=[
@@ -87,7 +88,7 @@ this.studentForm.controls["gender"].patchValue(data[index].gender);
 
  funDisplay()
  {
-alert(this.studentForm.controls["firstName"].value);
+// alert(this.studentForm.controls["firstName"].value);
 }
 
 }

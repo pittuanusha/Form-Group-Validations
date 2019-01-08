@@ -1,23 +1,49 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <form [formGroup]="studentForm" #ngForm (ngSubmit)="onSubmit()">
-  <div style="text-align:center" class="form-group" >
-<label>First Name</label>
-<input type="text" name="firstName" formControlName="firstName" class="form-control" (change)="funDisplay()"><br/><br/>
-<label>Last Name</label>
-<input type="text" name="lastName"  formControlName="lastName" class="form-control" (change)="funDisplay()"><br/><br/>
+  <div style="text-align:center" class="form-group" *ngIf="!name;else forminfo" >
 
+<div class="form-container">
+    <label>First Name</label>
+<input type="text" name="firstName" 
+formControlName="firstName" class="form-control" pattern="[A-Za-z]+$" minlength="3" /><br/><br/>
+<div class="alert" *ngIf="!studentForm.controls['firstName'].valid 
+&& studentForm.controls['firstName'].touched" >required field should allow only alphabets </div>
+</div>
+
+
+<div class="form-container">
+<label>Last Name</label>
+<input type="text" name="lastName"  formControlName="lastName"
+ class="form-control" pattern="[A-Za-z]+$" minlength="1"/><br/><br/>
+<div class="alert" *ngIf="!studentForm.controls['lastName'].valid 
+&& studentForm.controls['lastName'].touched">required field should allow only alphabets</div>
+</div>
+
+
+<div>
 <label> your location</label>
-<select formControlName="location" class="form-control" (change)="funDisplay()"> 
+<select formControlName="location" class="form-control" 
+(change)="funDisplay()" pattern="[A-Za-z]+$"> 
   <option>-select-</option>
   <option>chirala</option>
   <option>guntur</option>
   <option>hyderabad</option>
-  
-</select><br/><br/>
+</select>
+<div class="alert" *ngIf="!studentForm.controls['location'].valid && 
+studentForm.controls['location'].touched">this is required field</div>
+</div>
+<br/><br/>
+
+
+<div>
 <label>select your gender:</label>
 <input type="radio" formControlName="gender" name="gender" value="male" (change)="funDisplay()">Male
-<input type="radio" formControlName="gender" name="gender" value="female"(change)="funDisplay()" >Female<br/><br/>
+<input type="radio" formControlName="gender" name="gender" value="female"(change)="funDisplay()" >Female
+<div class="alert" *ngIf="!studentForm.controls['gender'].valid ">this is required field</div>
+</div>
+<br/><br/>
+
 <button type="submit">save</button>
   </div>
   <table border="1">
